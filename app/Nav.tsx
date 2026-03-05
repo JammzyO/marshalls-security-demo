@@ -12,7 +12,7 @@ export default function Nav() {
     return (
       <nav className={navStyles.nav} aria-label="Main navigation">
         <div className={navStyles.inner}>
-          <a href="/" className={navStyles.logo} aria-label="Marshalls Security Group home">
+          <a href="https://marshallssecurity.co.ke/" className={navStyles.logo} aria-label="Marshalls Security Group home">
             <Image src="/logo.png" alt="Marshalls Security Group" width={48} height={48} className={navStyles.logoImg} priority />
           </a>
           <ul className={navStyles.links} role="list">
@@ -32,7 +32,7 @@ export default function Nav() {
     return (
       <nav className={navStyles.nav} aria-label="Main navigation">
         <div className={navStyles.inner}>
-          <a href="/" className={navStyles.logo} aria-label="Marshalls Security Group home">
+          <a href="https://marshallssecurity.co.ke/" className={navStyles.logo} aria-label="Marshalls Security Group home">
             <Image src="/logo.png" alt="Marshalls Security Group" width={48} height={48} className={navStyles.logoImg} priority />
           </a>
           <ul className={navStyles.links} role="list">
