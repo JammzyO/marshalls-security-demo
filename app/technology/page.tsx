@@ -98,7 +98,7 @@ export default function TechnologyPage() {
       </section>
 
       {/* ─── Systems We Install ─── */}
-      <section className={sysStyles.section}>
+      <section id="systems" className={sysStyles.section}>
         <div className={sysStyles.inner}>
 
           <span className={sysStyles.sectionLabel}>What We Install</span>
@@ -120,7 +120,7 @@ export default function TechnologyPage() {
       </section>
 
       {/* ─── CTA Strip ─── */}
-      <section className={ctaStyles.section}>
+      <section id="cta-strip" className={ctaStyles.section}>
         <div className={ctaStyles.inner}>
           <p className={ctaStyles.copy}>
             Every installation starts with a site survey. No obligation.

@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import Image from 'next/image'
 import './globals.css'
-import navStyles from './nav.module.css'
 import footerStyles from './footer.module.css'
 import AnimationsInit from './AnimationsInit'
+import Nav from './Nav'
 
 /* ─── Fonts ─── */
 const cormorant = Cormorant_Garamond({
@@ -26,46 +26,6 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: 'Marshalls Security Group Ltd',
   description: 'Premium security services in Kenya.',
-}
-
-/* ─── Nav ─── */
-function Nav() {
-  return (
-    <nav className={navStyles.nav} aria-label="Main navigation">
-      <div className={navStyles.inner}>
-
-        {/* Logo — left */}
-        <a href="/" className={navStyles.logo} aria-label="Marshalls Security Group home">
-          <Image
-            src="/logo.png"
-            alt="Marshalls Security Group"
-            width={48}
-            height={48}
-            className={navStyles.logoImg}
-            priority
-          />
-        </a>
-
-        {/* Nav links — centre */}
-        <ul className={navStyles.links} role="list">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/services">Services</a></li>
-          <li><a href="/guards">Guard Services</a></li>
-          <li><a href="/technology">Technology</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-
-        {/* CTA — right */}
-        <div className={navStyles.ctaWrap}>
-          <a href="/audit" className={navStyles.cta}>
-            Book an Audit
-          </a>
-        </div>
-
-      </div>
-    </nav>
-  )
 }
 
 /* ─── Footer ─── */

@@ -82,7 +82,7 @@ export default function GuardsPage() {
       </section>
 
       {/* ─── What's Included ─── */}
-      <section className={incStyles.section}>
+      <section id="whats-included" className={incStyles.section}>
         <div className={incStyles.inner}>
 
           <span className={incStyles.sectionLabel}>What&rsquo;s Included</span>
@@ -113,7 +113,7 @@ export default function GuardsPage() {
       </section>
 
       {/* ─── Qualification Form ─── */}
-      <section className={formStyles.section}>
+      <section id="audit" className={formStyles.section}>
         <div className={formStyles.inner}>
 
           {/* Left: context */}
