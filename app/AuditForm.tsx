@@ -45,23 +45,51 @@ export default function AuditForm({
 
   function validateS1(): boolean {
     const err: E1 = {}
-    if (!s1.propertyType)      err.propertyType = 'Please select a property type'
-    if (!s1.location.trim())   err.location     = 'Please enter your location'
-    if (!s1.mainConcern)       err.mainConcern  = 'Please select your main concern'
-    if (s1.hasGuards === null) err.hasGuards    = 'Please select Yes or No'
-    if (s1.tech.length === 0)  err.tech         = 'Please select at least one option'
-    if (!s1.timeline)          err.timeline     = 'Please select a timeframe'
+    if (!s1.propertyType)                    err.propertyType = 'Please select a property type'
+    if (s1.location.trim().length < 2)       err.location     = 'Please enter your location'
+    if (!s1.mainConcern)                     err.mainConcern  = 'Please select your main concern'
+    if (s1.hasGuards === null)               err.hasGuards    = 'Please select Yes or No'
+    if (s1.tech.length === 0)                err.tech         = 'Please select at least one option'
+    if (!s1.timeline)                        err.timeline     = 'Please select a timeframe'
     setE1(err)
     return Object.keys(err).length === 0
   }
 
+  function validateField2(field: keyof S2, value: string): string | undefined {
+    if (field === 'name') {
+      if (!value.trim() || value.trim().length < 2 || !/^[a-zA-Z\s]+$/.test(value.trim()))
+        return 'Please enter a valid name'
+    }
+    if (field === 'phone') {
+      const digits = value.replace(/\D/g, '')
+      if (!value.trim() || !/^\d+$/.test(value.trim()) || digits.length < 9 || digits.length > 12)
+        return 'Please enter a valid phone number'
+    }
+    if (field === 'email') {
+      if (!value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()))
+        return 'Please enter a valid email address'
+    }
+    return undefined
+  }
+
   function validateS2(): boolean {
-    const err: E2 = {}
-    if (!s2.name.trim())  err.name  = 'Please enter your full name'
-    if (!s2.phone.trim()) err.phone = 'Please enter your phone number'
-    if (!s2.email.trim()) err.email = 'Please enter your email address'
+    const err: E2 = {
+      name:  validateField2('name',  s2.name),
+      phone: validateField2('phone', s2.phone),
+      email: validateField2('email', s2.email),
+    }
+    // Remove undefined keys
+    if (!err.name)  delete err.name
+    if (!err.phone) delete err.phone
+    if (!err.email) delete err.email
     setE2(err)
     return Object.keys(err).length === 0
+  }
+
+  function handleS2Change(field: keyof S2, value: string) {
+    setS2(p => ({ ...p, [field]: value }))
+    const fieldErr = validateField2(field, value)
+    setE2(p => ({ ...p, [field]: fieldErr }))
   }
 
   function handleNext() {
@@ -230,7 +258,7 @@ export default function AuditForm({
               className={`${styles.input} ${e2.name ? styles.fieldError : ''}`}
               id="full-name" type="text" placeholder="Your full name" autoComplete="name"
               value={s2.name}
-              onChange={ev => { setS2(p => ({ ...p, name: ev.target.value })); setE2(p => ({ ...p, name: undefined })) }}
+              onChange={ev => handleS2Change('name', ev.target.value)}
             />
             {e2.name && <span className={styles.errorMsg}>{e2.name}</span>}
           </div>
@@ -241,7 +269,7 @@ export default function AuditForm({
               className={`${styles.input} ${e2.phone ? styles.fieldError : ''}`}
               id="phone" type="tel" placeholder="Phone number" autoComplete="tel"
               value={s2.phone}
-              onChange={ev => { setS2(p => ({ ...p, phone: ev.target.value })); setE2(p => ({ ...p, phone: undefined })) }}
+              onChange={ev => handleS2Change('phone', ev.target.value)}
             />
             {e2.phone && <span className={styles.errorMsg}>{e2.phone}</span>}
           </div>
@@ -252,7 +280,7 @@ export default function AuditForm({
               className={`${styles.input} ${e2.email ? styles.fieldError : ''}`}
               id="email" type="email" placeholder="Email address" autoComplete="email"
               value={s2.email}
-              onChange={ev => { setS2(p => ({ ...p, email: ev.target.value })); setE2(p => ({ ...p, email: undefined })) }}
+              onChange={ev => handleS2Change('email', ev.target.value)}
             />
             {e2.email && <span className={styles.errorMsg}>{e2.email}</span>}
           </div>
