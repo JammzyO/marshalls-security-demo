@@ -1,5 +1,6 @@
 'use client'
 
+import { useForm } from '@formspree/react'
 import { useState } from 'react'
 import styles from './audit-form.module.css'
 
@@ -19,7 +20,8 @@ type E1 = Partial<Record<keyof S1, string>>
 type E2 = Partial<Record<keyof S2, string>>
 
 export default function AuditForm({ submitLabel = 'Submit — Book My Security Audit' }: { submitLabel?: string }) {
-  const [step, setStep] = useState<1 | 2 | 'done'>(1)
+  const [formState, submit] = useForm('xkoqwkgk')
+  const [step, setStep] = useState<1 | 2>(1)
 
   const [s1, setS1] = useState<S1>({
     propertyType: '', location: '', mainConcern: '',
@@ -60,15 +62,24 @@ export default function AuditForm({ submitLabel = 'Submit — Book My Security A
     if (validateS1()) setStep(2)
   }
 
-  function handleSubmit(ev: React.FormEvent) {
+  async function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault()
     if (!validateS2()) return
-    // Full payload: { ...s1, ...s2 }
-    setStep('done')
+    await submit({
+      property_type: s1.propertyType,
+      location:      s1.location,
+      main_concern:  s1.mainConcern,
+      has_guards:    s1.hasGuards ? 'Yes' : 'No',
+      current_tech:  s1.tech.join(', '),
+      timeline:      s1.timeline,
+      full_name:     s2.name,
+      phone:         s2.phone,
+      email:         s2.email,
+    })
   }
 
   /* ─── Confirmation ─── */
-  if (step === 'done') {
+  if (formState.succeeded) {
     return (
       <div className={styles.confirmation}>
         <h3 className={styles.confirmHeading}>Request received.</h3>
@@ -78,6 +89,8 @@ export default function AuditForm({ submitLabel = 'Submit — Book My Security A
       </div>
     )
   }
+
+  const hasSubmitError = formState.errors && formState.errors.length > 0
 
   return (
     <div className={styles.formWrap}>
@@ -90,7 +103,7 @@ export default function AuditForm({ submitLabel = 'Submit — Book My Security A
           <label className={styles.label} htmlFor="property-type">Property Type</label>
           <select
             className={`${styles.select} ${e1.propertyType ? styles.fieldError : ''}`}
-            id="property-type" name="property_type" value={s1.propertyType}
+            id="property-type" value={s1.propertyType}
             onChange={ev => { setS1(p => ({ ...p, propertyType: ev.target.value })); setE1(p => ({ ...p, propertyType: undefined })) }}
           >
             <option value="" disabled>Select property type</option>
@@ -110,7 +123,7 @@ export default function AuditForm({ submitLabel = 'Submit — Book My Security A
           <label className={styles.label} htmlFor="location">Location</label>
           <input
             className={`${styles.input} ${e1.location ? styles.fieldError : ''}`}
-            id="location" name="location" type="text" placeholder="County or town" autoComplete="off"
+            id="location" type="text" placeholder="County or town" autoComplete="off"
             value={s1.location}
             onChange={ev => { setS1(p => ({ ...p, location: ev.target.value })); setE1(p => ({ ...p, location: undefined })) }}
           />
@@ -122,7 +135,7 @@ export default function AuditForm({ submitLabel = 'Submit — Book My Security A
           <label className={styles.label} htmlFor="main-concern">Main Concern</label>
           <select
             className={`${styles.select} ${e1.mainConcern ? styles.fieldError : ''}`}
-            id="main-concern" name="main_concern" value={s1.mainConcern}
+            id="main-concern" value={s1.mainConcern}
             onChange={ev => { setS1(p => ({ ...p, mainConcern: ev.target.value })); setE1(p => ({ ...p, mainConcern: undefined })) }}
           >
             <option value="" disabled>Select your main concern</option>
@@ -179,7 +192,7 @@ export default function AuditForm({ submitLabel = 'Submit — Book My Security A
           <label className={styles.label} htmlFor="timeline">When do you want this solved?</label>
           <select
             className={`${styles.select} ${e1.timeline ? styles.fieldError : ''}`}
-            id="timeline" name="timeline" value={s1.timeline}
+            id="timeline" value={s1.timeline}
             onChange={ev => { setS1(p => ({ ...p, timeline: ev.target.value })); setE1(p => ({ ...p, timeline: undefined })) }}
           >
             <option value="" disabled>Select timeframe</option>
@@ -211,7 +224,7 @@ export default function AuditForm({ submitLabel = 'Submit — Book My Security A
             <label className={styles.label} htmlFor="full-name">Full Name</label>
             <input
               className={`${styles.input} ${e2.name ? styles.fieldError : ''}`}
-              id="full-name" name="name" type="text" placeholder="Your full name" autoComplete="name"
+              id="full-name" type="text" placeholder="Your full name" autoComplete="name"
               value={s2.name}
               onChange={ev => { setS2(p => ({ ...p, name: ev.target.value })); setE2(p => ({ ...p, name: undefined })) }}
             />
@@ -222,7 +235,7 @@ export default function AuditForm({ submitLabel = 'Submit — Book My Security A
             <label className={styles.label} htmlFor="phone">Phone Number</label>
             <input
               className={`${styles.input} ${e2.phone ? styles.fieldError : ''}`}
-              id="phone" name="phone" type="tel" placeholder="Phone number" autoComplete="tel"
+              id="phone" type="tel" placeholder="Phone number" autoComplete="tel"
               value={s2.phone}
               onChange={ev => { setS2(p => ({ ...p, phone: ev.target.value })); setE2(p => ({ ...p, phone: undefined })) }}
             />
@@ -233,15 +246,21 @@ export default function AuditForm({ submitLabel = 'Submit — Book My Security A
             <label className={styles.label} htmlFor="email">Email Address</label>
             <input
               className={`${styles.input} ${e2.email ? styles.fieldError : ''}`}
-              id="email" name="email" type="email" placeholder="Email address" autoComplete="email"
+              id="email" type="email" placeholder="Email address" autoComplete="email"
               value={s2.email}
               onChange={ev => { setS2(p => ({ ...p, email: ev.target.value })); setE2(p => ({ ...p, email: undefined })) }}
             />
             {e2.email && <span className={styles.errorMsg}>{e2.email}</span>}
           </div>
 
-          <button type="submit" className={styles.submit}>
-            {submitLabel}
+          {hasSubmitError && (
+            <p className={styles.submitError}>
+              Something went wrong. Please call us directly on 0739 060 606.
+            </p>
+          )}
+
+          <button type="submit" className={styles.submit} disabled={formState.submitting}>
+            {formState.submitting ? 'Submitting…' : submitLabel}
           </button>
 
           <button type="button" className={styles.backLink} onClick={() => setStep(1)}>

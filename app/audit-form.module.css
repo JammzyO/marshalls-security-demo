@@ -327,6 +327,14 @@
   outline-offset: 3px;
 }
 
+.submitError {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #8B6B5E;
+  line-height: 1.6;
+}
+
 /* ─── Confirmation state ─── */
 .confirmation {
   display: flex;
