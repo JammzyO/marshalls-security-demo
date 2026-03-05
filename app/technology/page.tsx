@@ -2,6 +2,8 @@ import { Fragment } from 'react'
 import styles from './technology-hero.module.css'
 import sysStyles from './tech-systems.module.css'
 import ctaStyles from './tech-cta-strip.module.css'
+import formStyles from '../audit-form.module.css'
+import AuditForm from '../AuditForm'
 
 const SYSTEMS = [
   {
@@ -114,6 +116,36 @@ export default function TechnologyPage() {
                 <p className={sysStyles.cardBody}>{sys.body}</p>
               </div>
             ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ─── Qualification Form ─── */}
+      <section className={formStyles.section}>
+        <div className={formStyles.inner}>
+
+          <div className={formStyles.context}>
+            <span className={formStyles.sectionLabel}>Get Started</span>
+            <h2 className={formStyles.headline}>
+              Request a Site Survey.
+            </h2>
+            <p className={formStyles.subtext}>
+              We&rsquo;ll come to you. Free site assessment, no obligation.
+            </p>
+            <ul className={formStyles.trustList}>
+              <li className={formStyles.trustItem}>No obligation — assessment is completely free</li>
+              <li className={formStyles.trustItem}>One of our team calls you to confirm</li>
+              <li className={formStyles.trustItem}>Site visit scheduled within 48 hours</li>
+              <li className={formStyles.trustItem}>Full written risk report provided</li>
+            </ul>
+          </div>
+
+          <div className={formStyles.panel}>
+            <AuditForm
+              submitLabel="Submit — Request a Site Survey"
+              confirmText="One of our team will contact you within 5 hours to arrange your site survey."
+            />
           </div>
 
         </div>

@@ -19,7 +19,13 @@ type S2 = { name: string; phone: string; email: string }
 type E1 = Partial<Record<keyof S1, string>>
 type E2 = Partial<Record<keyof S2, string>>
 
-export default function AuditForm({ submitLabel = 'Submit — Book My Security Audit' }: { submitLabel?: string }) {
+export default function AuditForm({
+  submitLabel = 'Submit — Book My Security Audit',
+  confirmText = 'One of our team will contact you within 5 hours. Check your email for confirmation.',
+}: {
+  submitLabel?: string
+  confirmText?: string
+}) {
   const [formState, submit] = useForm('xkoqwkgk')
   const [step, setStep] = useState<1 | 2>(1)
 
@@ -83,9 +89,7 @@ export default function AuditForm({ submitLabel = 'Submit — Book My Security A
     return (
       <div className={styles.confirmation}>
         <h3 className={styles.confirmHeading}>Request received.</h3>
-        <p className={styles.confirmText}>
-          One of our team will contact you within 5 hours. Check your email for confirmation.
-        </p>
+        <p className={styles.confirmText}>{confirmText}</p>
       </div>
     )
   }
