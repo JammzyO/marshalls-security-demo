@@ -1,10 +1,19 @@
 'use client'
 
-import { useForm } from '@formspree/react'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import styles from './audit-form.module.css'
 
+const WEBHOOK = 'https://hook.eu2.make.com/ewm2zfey8x23w0ia3njxpe1dtizs2xmj'
+
 const TECH_OPTIONS = ['CCTV', 'Electric Fence', 'Access Control', 'Alarm', 'GPS', 'None']
+
+const PAGE_MAP: Record<string, string> = {
+  '/':           'homepage',
+  '/services':   'services',
+  '/guards':     'guard-services',
+  '/technology': 'technology',
+}
 
 type S1 = {
   propertyType: string
@@ -26,8 +35,11 @@ export default function AuditForm({
   submitLabel?: string
   confirmText?: string
 }) {
-  const [formState, submit] = useForm('xkoqwkgk')
+  const path = usePathname()
   const [step, setStep] = useState<1 | 2>(1)
+  const [succeeded, setSucceeded] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState(false)
 
   const [s1, setS1] = useState<S1>({
     propertyType: '', location: '', mainConcern: '',
@@ -78,7 +90,6 @@ export default function AuditForm({
       phone: validateField2('phone', s2.phone),
       email: validateField2('email', s2.email),
     }
-    // Remove undefined keys
     if (!err.name)  delete err.name
     if (!err.phone) delete err.phone
     if (!err.email) delete err.email
@@ -99,21 +110,39 @@ export default function AuditForm({
   async function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault()
     if (!validateS2()) return
-    await submit({
-      property_type: s1.propertyType,
-      location:      s1.location,
-      main_concern:  s1.mainConcern,
-      has_guards:    s1.hasGuards ? 'Yes' : 'No',
-      current_tech:  s1.tech.join(', '),
-      timeline:      s1.timeline,
-      full_name:     s2.name,
-      phone:         s2.phone,
-      email:         s2.email,
-    })
+    setSubmitting(true)
+    setSubmitError(false)
+    try {
+      const res = await fetch(WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          property_type: s1.propertyType,
+          location:      s1.location,
+          main_concern:  s1.mainConcern,
+          has_guards:    s1.hasGuards ? 'Yes' : 'No',
+          current_tech:  s1.tech.join(', '),
+          timeline:      s1.timeline,
+          full_name:     s2.name,
+          phone:         s2.phone,
+          email:         s2.email,
+          source_page:   PAGE_MAP[path] ?? path,
+        }),
+      })
+      if (res.ok) {
+        setSucceeded(true)
+      } else {
+        setSubmitError(true)
+      }
+    } catch {
+      setSubmitError(true)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   /* ─── Confirmation ─── */
-  if (formState.succeeded) {
+  if (succeeded) {
     return (
       <div className={styles.confirmation}>
         <h3 className={styles.confirmHeading}>Request received.</h3>
@@ -121,8 +150,6 @@ export default function AuditForm({
       </div>
     )
   }
-
-  const hasSubmitError = formState.errors && formState.errors.length > 0
 
   return (
     <div className={styles.formWrap}>
@@ -285,14 +312,14 @@ export default function AuditForm({
             {e2.email && <span className={styles.errorMsg}>{e2.email}</span>}
           </div>
 
-          {hasSubmitError && (
+          {submitError && (
             <p className={styles.submitError}>
               Something went wrong. Please call us directly on 0739 060 606.
             </p>
           )}
 
-          <button type="submit" className={styles.submit} disabled={formState.submitting}>
-            {formState.submitting ? 'Submitting…' : submitLabel}
+          <button type="submit" className={styles.submit} disabled={submitting}>
+            {submitting ? 'Submitting…' : submitLabel}
           </button>
 
           <button type="button" className={styles.backLink} onClick={() => setStep(1)}>
