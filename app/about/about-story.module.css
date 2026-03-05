@@ -1,0 +1,100 @@
+/* ─── Company Story ─── */
+.section {
+  background: var(--color-primary);
+  padding: var(--sp-12) var(--sp-6);
+  border-top: 1px solid rgba(245, 242, 238, 0.06);
+}
+
+.inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0 var(--sp-12);
+  align-items: start;
+}
+
+/* ─── Vertical divider ─── */
+.divider {
+  background: rgba(139, 107, 94, 0.20);
+  align-self: stretch;
+}
+
+/* ─── Left: pull quote with photo background ─── */
+.quoteCol {
+  position: relative;
+  overflow: hidden;
+  padding: var(--sp-10) var(--sp-8);
+}
+
+/* ─── Background photo (fill) ─── */
+.quoteBg {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ─── Dark overlay ─── */
+.quoteOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 22, 18, 0.75);
+  z-index: 1;
+}
+
+/* ─── Quote text — above image + overlay ─── */
+.pullQuote {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(24px, 2.4vw, 38px);
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--color-surface);
+}
+
+/* ─── Right: body copy ─── */
+.bodyCol {
+  padding-left: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+
+.para {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.80;
+  letter-spacing: 0.01em;
+  color: rgba(245, 242, 238, 0.52);
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: var(--sp-8) 0;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .quoteCol {
+    padding: var(--sp-8) var(--sp-6);
+    border-bottom: 1px solid rgba(139, 107, 94, 0.18);
+  }
+
+  .bodyCol {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .section {
+    padding: var(--sp-8) var(--sp-3);
+  }
+}

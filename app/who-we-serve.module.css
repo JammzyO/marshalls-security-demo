@@ -1,0 +1,127 @@
+/* ─── Who We Serve ─── */
+.section {
+  background: var(--color-primary);
+  padding: var(--sp-12) var(--sp-6);
+  border-top: 1px solid rgba(245, 242, 238, 0.06);
+}
+
+.inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* ─── Header ─── */
+.sectionLabel {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245, 242, 238, 0.35);
+  margin-bottom: var(--sp-3);
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 2.8vw, 46px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-surface);
+  max-width: 680px;
+  margin-bottom: var(--sp-10);
+}
+
+/* ─── Sector Grid ─── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(245, 242, 238, 0.07); /* gap = hairline border colour */
+  border: 1px solid rgba(245, 242, 238, 0.07);
+  margin-bottom: var(--sp-8);
+}
+
+/* ─── Sector Box ─── */
+.sector {
+  background: var(--color-primary);
+  padding: var(--sp-6) var(--sp-6) var(--sp-5);
+  display: flex;
+  align-items: flex-end; /* name sits at the bottom of the cell */
+  min-height: 140px;
+  position: relative;
+  /* Animate border colour via box-shadow inset — avoids layout shift */
+  box-shadow: inset 0 0 0 0px var(--color-accent);
+  transition: background 300ms ease;
+  cursor: default;
+}
+
+/* Hover: accent border flush with the cell edges */
+.sector:hover {
+  background: rgba(139, 107, 94, 0.04);
+}
+
+/* Accent rule at top — grows in on hover */
+.sector::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 400ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.sector:hover::before {
+  transform: scaleX(1);
+}
+
+/* Sector name */
+.sectorName {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.6vw, 26px);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: rgba(245, 242, 238, 0.75);
+  transition: color 300ms ease;
+}
+
+.sector:hover .sectorName {
+  color: var(--color-surface);
+}
+
+/* ─── Footer note ─── */
+.note {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: rgba(245, 242, 238, 0.38);
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .section {
+    padding: var(--sp-8) var(--sp-3);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sector {
+    min-height: 100px;
+  }
+}

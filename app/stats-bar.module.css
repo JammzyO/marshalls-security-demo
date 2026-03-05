@@ -1,0 +1,66 @@
+/* ─── Stats Bar ─── */
+.statsBar {
+  background: #221B15;
+  border-top:    1px solid rgba(139, 107, 94, 0.30);
+  border-bottom: 1px solid rgba(139, 107, 94, 0.30);
+}
+
+.inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--sp-6);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* ─── Individual Stat ─── */
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--sp-5) var(--sp-6);
+  gap: 6px;
+}
+
+/* Vertical dividers between stats */
+.stat + .stat {
+  border-left: 1px solid rgba(139, 107, 94, 0.18);
+}
+
+/* Stat primary label — Cormorant Garamond */
+.statLabel {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: var(--color-surface);
+}
+
+/* Stat descriptor — DM Sans, muted */
+.statDesc {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 242, 238, 0.38);
+  line-height: 1;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 640px) {
+  .inner {
+    grid-template-columns: 1fr;
+    padding: 0 var(--sp-3);
+  }
+
+  .stat + .stat {
+    border-left: none;
+    border-top: 1px solid rgba(139, 107, 94, 0.18);
+  }
+
+  .stat {
+    padding: var(--sp-3) var(--sp-3);
+  }
+}
