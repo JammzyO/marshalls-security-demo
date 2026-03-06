@@ -35,7 +35,7 @@ export default function ContactPage() {
               <span className={styles.contactLine}>info@marshallssecurity.co.ke</span>
               <span className={styles.contactLine}>0739 060 606 / 0719 705 748</span>
               <a
-                href="https://wa.me/254739060606"
+                href="https://wa.me/254739060606?text=Hi%2C%20I%27d%20like%20to%20find%20out%20more%20about%20Marshalls%20Security%20Group."
                 className={styles.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"

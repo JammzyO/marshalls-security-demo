@@ -132,7 +132,7 @@ export default function AboutPage() {
             <span className={vmcStyles.ctaNote}>
               See how we work &mdash; Book a Security Audit
             </span>
-            <a href="/audit" className={vmcStyles.cta}>
+            <a href="/#book-audit" className={vmcStyles.cta}>
               Book a Security Audit
             </a>
           </div>

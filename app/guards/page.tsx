@@ -57,10 +57,10 @@ export default function GuardsPage() {
           </p>
 
           <div className={styles.ctas}>
-            <a href="/audit" className={styles.ctaPrimary}>
+            <a href="https://wa.me/254739060606?text=Hi%2C%20I%27ve%20just%20submitted%20an%20audit%20request%20on%20the%20Marshalls%20Security%20website%20and%20I%27d%20like%20to%20schedule%20a%20call." className={styles.ctaPrimary} target="_blank" rel="noopener noreferrer">
               Book a Security Audit Call
             </a>
-            <a href="/contact" className={styles.ctaSecondary}>
+            <a href="#audit" className={styles.ctaSecondary}>
               Request a Site Survey
             </a>
           </div>
@@ -104,7 +104,7 @@ export default function GuardsPage() {
           </div>
 
           <div className={incStyles.ctaRow}>
-            <a href="/audit" className={incStyles.cta}>
+            <a href="https://wa.me/254739060606?text=Hi%2C%20I%27ve%20just%20submitted%20an%20audit%20request%20on%20the%20Marshalls%20Security%20website%20and%20I%27d%20like%20to%20schedule%20a%20call." className={incStyles.cta} target="_blank" rel="noopener noreferrer">
               Book a Security Audit Call
             </a>
           </div>

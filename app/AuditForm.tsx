@@ -51,7 +51,11 @@ export default function AuditForm({
   const [e2, setE2] = useState<E2>({})
 
   function toggleTech(item: string) {
-    setS1(p => ({ ...p, tech: p.tech.includes(item) ? p.tech.filter(t => t !== item) : [...p.tech, item] }))
+    setS1(p => {
+      if (p.tech.includes(item)) return { ...p, tech: p.tech.filter(t => t !== item) }
+      if (item === 'None') return { ...p, tech: ['None'] }
+      return { ...p, tech: [...p.tech.filter(t => t !== 'None'), item] }
+    })
     setE1(p => ({ ...p, tech: undefined }))
   }
 
@@ -141,12 +145,25 @@ export default function AuditForm({
     }
   }
 
+  function handleReset() {
+    setSucceeded(false)
+    setStep(1)
+    setS1({ propertyType: '', location: '', mainConcern: '', hasGuards: null, tech: [], timeline: '' })
+    setE1({})
+    setS2({ name: '', phone: '', email: '' })
+    setE2({})
+    setSubmitError(false)
+  }
+
   /* ─── Confirmation ─── */
   if (succeeded) {
     return (
       <div className={styles.confirmation}>
         <h3 className={styles.confirmHeading}>Request received.</h3>
         <p className={styles.confirmText}>{confirmText}</p>
+        <button type="button" className={styles.resetLink} onClick={handleReset}>
+          Submit another request
+        </button>
       </div>
     )
   }

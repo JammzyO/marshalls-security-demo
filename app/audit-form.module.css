@@ -361,6 +361,19 @@
   max-width: 400px;
 }
 
+.resetLink {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: rgba(245, 242, 238, 0.50);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ─── Contact row: two inputs side by side ─── */
 .contactRow {
   display: grid;

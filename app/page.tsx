@@ -49,7 +49,7 @@ export default function Home() {
         </p>
 
         <div className={styles.ctas}>
-          <a href="/audit" className={styles.ctaPrimary}>
+          <a href="#book-audit" className={styles.ctaPrimary}>
             Book a Security Audit
           </a>
           <a href="/services" className={styles.ctaSecondary}>
@@ -136,7 +136,7 @@ export default function Home() {
         </div>
 
         <div className={svcStyles.ctaRow}>
-          <a href="/audit" className={svcStyles.cta}>
+          <a href="#book-audit" className={svcStyles.cta}>
             Book a Security Audit
           </a>
         </div>
@@ -208,7 +208,7 @@ export default function Home() {
           <p className={baStyles.bottomNote}>
             Get a free security risk assessment for your property.
           </p>
-          <a href="/audit" className={baStyles.cta}>
+          <a href="#book-audit" className={baStyles.cta}>
             Book a Security Audit
           </a>
         </div>
@@ -250,7 +250,7 @@ export default function Home() {
     </section>
 
     {/* ─── Qualification Form ─── */}
-    <section className={formStyles.section} id="audit">
+    <section className={formStyles.section} id="book-audit">
       <div className={formStyles.inner}>
 
         {/* Left: context */}

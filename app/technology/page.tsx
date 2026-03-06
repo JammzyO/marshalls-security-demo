@@ -75,10 +75,10 @@ export default function TechnologyPage() {
           </p>
 
           <div className={styles.ctas}>
-            <a href="/contact" className={styles.ctaPrimary}>
+            <a href="#site-survey" className={styles.ctaPrimary}>
               Request a Site Survey
             </a>
-            <a href="/audit" className={styles.ctaSecondary}>
+            <a href="https://wa.me/254739060606?text=Hi%2C%20I%27ve%20just%20submitted%20an%20audit%20request%20on%20the%20Marshalls%20Security%20website%20and%20I%27d%20like%20to%20schedule%20a%20call." className={styles.ctaSecondary} target="_blank" rel="noopener noreferrer">
               Book a Security Audit Call
             </a>
           </div>
@@ -122,7 +122,7 @@ export default function TechnologyPage() {
       </section>
 
       {/* ─── Qualification Form ─── */}
-      <section className={formStyles.section}>
+      <section className={formStyles.section} id="site-survey">
         <div className={formStyles.inner}>
 
           <div className={formStyles.context}>
@@ -157,7 +157,7 @@ export default function TechnologyPage() {
           <p className={ctaStyles.copy}>
             Every installation starts with a site survey. No obligation.
           </p>
-          <a href="/contact" className={ctaStyles.cta}>
+          <a href="#site-survey" className={ctaStyles.cta}>
             Request a Site Survey
           </a>
         </div>
