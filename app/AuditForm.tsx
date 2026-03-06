@@ -164,6 +164,16 @@ export default function AuditForm({
         <button type="button" className={styles.resetLink} onClick={handleReset}>
           Submit another request
         </button>
+        <div className={styles.confirmDivider} aria-hidden="true" />
+        <span className={styles.confirmWaLabel}>Want to speak sooner?</span>
+        <a
+          href={`https://wa.me/254739060606?text=${encodeURIComponent(`Hi, I just submitted the security audit form on the Marshalls Security website. My name is ${s2.name}, I have a ${s1.propertyType} in ${s1.location} and my main concern is ${s1.mainConcern}. I'd like to schedule a call.`)}`}
+          className={styles.confirmWaBtn}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          WhatsApp Us Now — We Have Your Details
+        </a>
       </div>
     )
   }

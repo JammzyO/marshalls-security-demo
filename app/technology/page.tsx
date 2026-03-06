@@ -78,9 +78,6 @@ export default function TechnologyPage() {
             <a href="#site-survey" className={styles.ctaPrimary}>
               Request a Site Survey
             </a>
-            <a href="https://wa.me/254739060606?text=Hi%2C%20I%27ve%20just%20submitted%20an%20audit%20request%20on%20the%20Marshalls%20Security%20website%20and%20I%27d%20like%20to%20schedule%20a%20call." className={styles.ctaSecondary} target="_blank" rel="noopener noreferrer">
-              Book a Security Audit Call
-            </a>
           </div>
 
         </div>
