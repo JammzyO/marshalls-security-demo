@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import styles from './audit-form.module.css'
 
-const WEBHOOK = 'https://hook.eu2.make.com/ewm2zfey8x23w0ia3njxpe1dtizs2xmj'
+const WEBHOOK = 'https://hook.eu2.make.com/egdp2vhjavsbnynbdvhtkh9c7c3v4a5a'
 
 const TECH_OPTIONS = ['CCTV', 'Electric Fence', 'Access Control', 'Alarm', 'GPS', 'None']
 
