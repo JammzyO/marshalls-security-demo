@@ -117,6 +117,15 @@ export default function AuditForm({
     setSubmitting(true)
     setSubmitError(false)
     try {
+      const now = new Date()
+      const eat = new Date(now.toLocaleString('en-US', { timeZone: 'Africa/Nairobi' }))
+      const dd   = String(eat.getDate()).padStart(2, '0')
+      const mm   = String(eat.getMonth() + 1).padStart(2, '0')
+      const yyyy = eat.getFullYear()
+      const hh   = String(eat.getHours()).padStart(2, '0')
+      const min  = String(eat.getMinutes()).padStart(2, '0')
+      const submittedAt = `${dd}/${mm}/${yyyy} ${hh}:${min}`
+
       const res = await fetch(WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -131,6 +140,7 @@ export default function AuditForm({
           phone:         s2.phone,
           email:         s2.email,
           source_page:   PAGE_MAP[path] ?? path,
+          submitted_at:  submittedAt,
         }),
       })
       if (res.ok) {
