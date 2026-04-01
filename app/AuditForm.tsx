@@ -138,7 +138,7 @@ export default function AuditForm({
           phone:             s2.phone,
           email:             s2.email,
           source_page:       PAGE_MAP[path] ?? path,
-          'Submission Date': submissionDate,
+          Submission_Date:   submissionDate,
         }),
       })
       if (res.ok) {
