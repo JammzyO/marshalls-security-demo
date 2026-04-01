@@ -122,25 +122,23 @@ export default function AuditForm({
       const dd   = String(eat.getDate()).padStart(2, '0')
       const mm   = String(eat.getMonth() + 1).padStart(2, '0')
       const yyyy = eat.getFullYear()
-      const hh   = String(eat.getHours()).padStart(2, '0')
-      const min  = String(eat.getMinutes()).padStart(2, '0')
-      const submittedAt = `${dd}/${mm}/${yyyy} ${hh}:${min}`
+      const submissionDate = `${dd}/${mm}/${yyyy}`
 
       const res = await fetch(WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          property_type: s1.propertyType,
-          location:      s1.location,
-          main_concern:  s1.mainConcern,
-          has_guards:    s1.hasGuards ? 'Yes' : 'No',
-          current_tech:  s1.tech.join(', '),
-          timeline:      s1.timeline,
-          full_name:     s2.name,
-          phone:         s2.phone,
-          email:         s2.email,
-          source_page:   PAGE_MAP[path] ?? path,
-          submitted_at:  submittedAt,
+          property_type:     s1.propertyType,
+          location:          s1.location,
+          main_concern:      s1.mainConcern,
+          has_guards:        s1.hasGuards ? 'Yes' : 'No',
+          current_tech:      s1.tech.join(', '),
+          timeline:          s1.timeline,
+          full_name:         s2.name,
+          phone:             s2.phone,
+          email:             s2.email,
+          source_page:       PAGE_MAP[path] ?? path,
+          'Submission Date': submissionDate,
         }),
       })
       if (res.ok) {
